@@ -62,6 +62,10 @@ int main(int argc,char *argv[]){
 	}
 	else{
 		filepath=(char *)malloc(OUTPUT_PATH_LEN+1);
+		if (filepath == NULL){
+			fprintf(stderr,"filepath malloc fail\n");
+			exit(EXIT_FAILURE);
+		}
 		strncpy(filepath,argv[0],PATH_LEN);
 		strcpy(filepath+PATH_LEN,OUTPUT_NAME);
 		filepath[OUTPUT_PATH_LEN]='\0';
