@@ -23,11 +23,11 @@
 				perror("_list.item malloc failed");                              \
 		}                                                                    \
 		else{                                                                \
-			void *temp_p = realloc(l.item,(_list.length+1)*sizeof(*_list.item));     \
+			void *temp_p = realloc(_list.item,(_list.length+1)*sizeof(*_list.item));     \
 			if (temp_p != NULL){                                             \
 				_list.item = temp_p;                                             \
 				_list.length++;                                                  \
-				_list.item[l.length-1] = _item;                                        \
+				_list.item[_list.length-1] = _item;                                        \
 			}                                                                \
 			else                                                             \
 				perror("_list.item append realloc failed");                      \
