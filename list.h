@@ -16,6 +16,11 @@
 		char opration_result; \
 	}
 
+#define NEWITEM(_list,_pos,_item) \
+	/* TODO custom function to add element */ \
+	_list.item[_pos] = _item; \
+	_list.length++; \
+
 #define List_append(_list,_item) \
 	do{ \
 		if(_list.length == 0){ \
@@ -25,9 +30,7 @@
 				_list.opration_result = 1; \
 				break; \
 			} \
-			/* TODO custom function to add element */ \
-			_list.item[0] = _item; \
-			_list.length = 1; \
+			NEWITEM(_list,_list.length,_item) \
 			_list.opration_result = 0; \
 			break; \
 		} \
@@ -38,9 +41,7 @@
 			break; \
 		} \
 		_list.item = temp_p; \
-		/* TODO custom function to add element */ \
-		_list.item[_list.length - 1] = _item; \
-		_list.length++; \
+		NEWITEM(_list,_list.length,_item) \
 		_list.opration_result = 0; \
 	}while(0) \
 	
@@ -105,9 +106,7 @@
 				_list.opration_result = 1; \
 				break; \
 			} \
-			/* TODO custom function to add element */ \
-			_list.item[_index] = _item; \
-			_list.length++; \
+			NEWITEM(_list,_index,_item) \
 			_list.opration_result = 0; \
 			break; \
 		} \
@@ -126,9 +125,7 @@
 		memmove(_list.item + _index + 1, \
 				_list.item + _index, \
 				(_list.length - _index) * sizeof(*_list.item)); \
-		/* TODO custom function to add element */ \
-		_list.item[_index] = _item; \
-		_list.length++; \
+		NEWITEM(_list,_index,_item) \
 		_list.opration_result = 0; \
 	}while(0)
 
