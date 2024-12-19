@@ -5,24 +5,16 @@
 int main(){
 	List(int) a = {0};
 
-	int index=0;
-	int b=10;
+	List_insert(a,0,1);
+	List_insert(a,0,2);
+	List_insert(a,0,3);
+	List_insert(a,0,4);
+	List_insert(a,0,5);
 
-	/* List_append(a,1); */
-	/* List_append(a,2); */
-	/* List_append(a,3); */
-	/* List_append(a,4); */
-	/* List_append(a,5); */
-
-	/* for(int i = 0;i < a.length;i++){ */
-	/* 	printf("%d\n",a.item[i]); */
-	/* } */
-	/* printf("\n"); */
-
-
-	/* for(int i = 0;i < a.length;i++){ */
-	/* 	printf("%d\n",a.item[i]); */
-	/* } */
+	for(int i = 0;i < a.length;i++){
+		printf("%d\n",a.item[i]);
+	}
+	printf("length:%zu\n",a.length);
 
 	if(a.item == NULL){
 		printf("NULL\n");
