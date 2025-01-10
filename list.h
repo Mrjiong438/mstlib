@@ -26,7 +26,8 @@
 		if(_list.length == 0){ \
 			_list.item = malloc(sizeof(*_list.item)); \
 			if(_list.item == NULL){ \
-				fprintf(stderr,"%s:%d: List_append: " #_list " malloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+				fprintf(stderr,"%s:%d: List_append: " #_list " malloc failed %s\n", \
+						__FILE__,__LINE__,strerror(errno)); \
 				_list.opration_result = 1; \
 				break; \
 			} \
@@ -36,7 +37,8 @@
 		} \
 		void *temp_p = realloc(_list.item,(_list.length + 1) * sizeof(*_list.item)); \
 		if (temp_p == NULL){ \
-			fprintf(stderr,"%s:%d: List_append: " #_list " realloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+			fprintf(stderr,"%s:%d: List_append: " #_list " realloc failed %s\n", \
+					__FILE__,__LINE__,strerror(errno)); \
 			_list.opration_result = 1; \
 			break; \
 		} \
@@ -49,7 +51,8 @@
 #define List_pop(_list) \
 	do{ \
 		if(_list.length == 0){ \
-			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n",__FILE__,__LINE__); \
+			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n", \
+					__FILE__,__LINE__); \
 			_list.opration_result = 1; \
 			break; \
 		} \
@@ -62,7 +65,8 @@
 		} \
 		void *temp_p = realloc(_list.item,(_list.length - 1) * sizeof(*_list.item)); \
 		if (temp_p == NULL){ \
-			fprintf(stderr,"%s:%d: List_pop: " #_list " realloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+			fprintf(stderr,"%s:%d: List_pop: " #_list " realloc failed %s\n", \
+					__FILE__,__LINE__,strerror(errno)); \
 			_list.opration_result = 1; \
 			break; \
 		} \
@@ -74,7 +78,8 @@
 #define List_take(_list) \
 	do{ \
 		if(_list.length == 0){ \
-			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n",__FILE__,__LINE__); \
+			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n", \
+					__FILE__,__LINE__); \
 			_list.opration_result = 1; \
 			break; \
 		} \
@@ -88,7 +93,8 @@
 		memmove(_list.item,_list.item + 1,(_list.length - 1) * sizeof(*_list.item)); \
 		void *temp_p = realloc(_list.item,(_list.length - 1) * sizeof(*_list.item)); \
 		if (temp_p == NULL){ \
-			fprintf(stderr,"%s:%d: List_take: " #_list " realloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+			fprintf(stderr,"%s:%d: List_take: " #_list " realloc failed %s\n", \
+					__FILE__,__LINE__,strerror(errno)); \
 			_list.opration_result = 1; \
 			break; \
 		} \
@@ -102,7 +108,8 @@
 		if(_index == 0 && _list.length == 0){ \
 			_list.item = malloc(sizeof(*_list.item)); \
 			if(_list.item == NULL){ \
-				fprintf(stderr,"%s:%d: List_insert: " #_list " malloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+				fprintf(stderr,"%s:%d: List_insert: " #_list " malloc failed %s\n", \
+						__FILE__,__LINE__,strerror(errno)); \
 				_list.opration_result = 1; \
 				break; \
 			} \
@@ -111,13 +118,15 @@
 			break; \
 		} \
 		if (_index < 0 || _index >= _list.length){ \
-			fprintf(stderr,"%s:%d: List_insert: " #_list " index is not in range\n",__FILE__,__LINE__); \
+			fprintf(stderr,"%s:%d: List_insert: " #_list " index is not in range\n", \
+					__FILE__,__LINE__); \
 			_list.opration_result = 1; \
 			break; \
 		} \
 		void *temp_p = realloc(_list.item,(_list.length + 1) * sizeof(*_list.item)); \
 		if (temp_p == NULL){ \
-			fprintf(stderr,"%s:%d: List_insert: " #_list " realloc failed %s\n",__FILE__,__LINE__,strerror(errno)); \
+			fprintf(stderr,"%s:%d: List_insert: " #_list " realloc failed %s\n", \
+					__FILE__,__LINE__,strerror(errno)); \
 			_list.opration_result = 1; \
 			break; \
 		} \
