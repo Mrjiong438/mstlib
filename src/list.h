@@ -11,8 +11,9 @@
 
 #define List(type)		\
 	struct{				\
-		type *item;		\
 		size_t length;	\
+		size_t size;	\
+		type *item;		\
 		char opration_result; \
 	}
 
@@ -20,6 +21,16 @@
 	/* TODO custom function to add element */ \
 	_list.item[_pos] = _item; \
 	_list.length++; \
+
+#define List_free(_list) \
+	do{ \
+		if(_list.length != 0){ \
+			free(_list.item); \
+			_list.item = NULL; \
+			_list.length = 0; \
+			_list.opration_result = 0; \
+		} \
+	}while(0)
 
 #define List_append(_list,_item) \
 	do{ \
@@ -51,7 +62,7 @@
 #define List_pop(_list) \
 	do{ \
 		if(_list.length == 0){ \
-			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n", \
+			fprintf(stderr,"%s:%d: List_pop: " #_list " is already empty\n", \
 					__FILE__,__LINE__); \
 			_list.opration_result = 1; \
 			break; \
