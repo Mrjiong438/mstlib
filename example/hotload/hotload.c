@@ -1,16 +1,12 @@
 #include<stdio.h>
 #include"../../src/hotload.c"
+#include"hot.h"
 
 int main(){
-	dylib hello = {
-		.path = "./fuc.so",
-		.lib = NULL,
-		.fucs = (dyfuc []){
-			{.name = "hello",.fuc = NULL},
-			{.name = "nonono",.fuc = NULL},
-			{0}
-		}
-	};
-	printf("%d\n",hello.fucs[2].name == NULL);
+	load_lib(&hell);
+	hello();
+	getc(stdin);
+	load_lib(&hell);
+	hello();
 	return 0;
 }

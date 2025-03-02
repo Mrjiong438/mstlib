@@ -12,24 +12,26 @@ typedef struct{
 	dyfuc *fucs;
 }dylib;
 
-/* int load_lib(dylib *dlib){ */
-/* 	if (*dlib.lib != NULL) { */
-/* 		dlclose(*dlib.lib); */
-/* 		/1* *lib_dest = NULL; *1/ */
-/* 	} */
-/* 	void *templib = dlopen(dlib.path,RTLD_NOW);//will be NULL if error */
+int load_lib(dylib *dlib){
+	if (dlib->lib != NULL) {
+		dlclose(dlib->lib);
+		/* *lib_dest = NULL; */
+	}
+	void *templib = dlopen(dlib->path,RTLD_NOW);//will be NULL if error
 
-/* 	if(*templib == NULL){ */
-/* 		fprintf(stderr,"ERROR: can not load %s:\n%s\n",dlib.path,dlerror()); */
-/* 		return -1; */
-/* 	} */
-/* 	*dlib.lib = templib; */
+	if(templib == NULL){
+		fprintf(stderr,"ERROR: can not load %s:\n%s\n",dlib->path,dlerror());
+		return -1;
+	}
+	dlib->lib = templib;
 
-/* 	for */
-/* 	void *tempfuc = dlsym(*lib_dest,fuc_name); */
-/* 	if(tempfuc == NULL){ */
-/* 		fprintf(stderr,"ERROR: can not load fuc in %s:\n%s\n" ,,dlerror()); */
-/* 		return -2; */
-/* 	} */
-/* 	return 0; */
-/* } */
+	for(int i = 0;dlib->fucs[i].name != NULL;i++){
+		void *tempfuc = dlsym(templib,dlib->fucs[i].name);
+		if(tempfuc == NULL){
+			fprintf(stderr,"ERROR: can not load fuc %s in %s:\n%s\n" ,dlib->fucs[i].name,dlib->path,dlerror());
+			return -2;
+		}
+		dlib->fucs[i].fuc = tempfuc;
+	}
+	return 0;
+}
