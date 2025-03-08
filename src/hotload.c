@@ -1,3 +1,5 @@
+#ifndef HOT_LOAD
+#define HOT_LOAD
 #include<stdio.h>
 #include<dlfcn.h>
 
@@ -12,6 +14,9 @@ typedef struct{
 	dyfuc *fucs;
 }dylib;
 
+int load_lib(dylib *dlib);
+
+#ifdef HOT_LOAD_IMPLEMENTATION
 int load_lib(dylib *dlib){
 	if (dlib->lib != NULL) {
 		dlclose(dlib->lib);
@@ -35,3 +40,5 @@ int load_lib(dylib *dlib){
 	}
 	return 0;
 }
+#endif//HOT_LOAD_IMPLEMENTATION
+#endif//HOT_LOAD
