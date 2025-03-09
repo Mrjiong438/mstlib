@@ -2,26 +2,26 @@
 #include<stdlib.h>
 #include"../../src/list.h"
 
-typedef List(long)longlist;
+typedef mst_list(long)longlist;
 
 int main(){
 	longlist *a = NULL;
 	a = malloc(sizeof(longlist));
 	memset(a,0,sizeof(longlist));
 
-	List_append((*a),1);
-	List_append((*a),2);
-	List_append((*a),3);
-	List_append((*a),4);
-	List_append((*a),5);
+	mst_list_append((*a),1);
+	mst_list_append((*a),2);
+	mst_list_append((*a),3);
+	mst_list_append((*a),4);
+	mst_list_append((*a),5);
 
-	List_pop((*a));
+	mst_list_pop((*a));
 
-	List_insert((*a),1,6);
-	List_insert((*a),1,7);
-	List_insert((*a),1,8);
-	List_insert((*a),1,9);
-	List_insert((*a),1,10);
+	mst_list_insert((*a),1,6);
+	mst_list_insert((*a),1,7);
+	mst_list_insert((*a),1,8);
+	mst_list_insert((*a),1,9);
+	mst_list_insert((*a),1,10);
 
 	for(size_t i = 0;i < a->length;i++){
 		printf("%ld\n",a->item[i]);
