@@ -15,10 +15,21 @@
 		type *item;\
 	}
 
-#define NEWITEM(_list,_pos,_item) \
+#define NEW_ITEM(_list,_pos,_item) \
 	/* TODO custom function to add element */ \
 	_list.item[_pos] = _item; \
 	_list.length++; \
+
+#define LIST_REALLOC(_list,n) \
+	void *temp_p = realloc(_list.item,n * sizeof(*_list.item)); \
+	printf("increace:%zu\n",n); \
+	if (temp_p == NULL){ \
+		fprintf(stderr,"%s:%d: List_append: " #_list " realloc failed %s\n", \
+				__FILE__,__LINE__,strerror(errno)); \
+		break; \
+	} \
+	_list.item = temp_p; \
+	_list.size = n; \
 
 #define mst_list_free(_list) \
 	do{ \
@@ -44,16 +55,9 @@
 			_list.size++; \
 		} \
 		if(_list.size == _list.length){ \
-			void *temp_p = realloc(_list.item,(_list.length + 1) * sizeof(*_list.item)); \
-			if (temp_p == NULL){ \
-				fprintf(stderr,"%s:%d: List_append: " #_list " realloc failed %s\n", \
-						__FILE__,__LINE__,strerror(errno)); \
-				break; \
-			} \
-			_list.item = temp_p; \
-			_list.size++; \
+			LIST_REALLOC(_list,_list.size * 2) \
 		} \
-		NEWITEM(_list,_list.length,_item) \
+		NEW_ITEM(_list,_list.length,_item) \
 	}while(0) \
 	
 
@@ -95,7 +99,7 @@
 						__FILE__,__LINE__,strerror(errno)); \
 				break; \
 			} \
-			NEWITEM(_list,_index,_item) \
+			NEW_ITEM(_list,_index,_item) \
 			break; \
 		} \
 		if (_index < 0 || _index >= _list.length){ \
@@ -104,19 +108,12 @@
 			break; \
 		} \
 		if(_list.size == _list.length){ \
-			void *temp_p = realloc(_list.item,(_list.length + 1) * sizeof(*_list.item)); \
-			if (temp_p == NULL){ \
-				fprintf(stderr,"%s:%d: List_append: " #_list " realloc failed %s\n", \
-						__FILE__,__LINE__,strerror(errno)); \
-				break; \
-			} \
-			_list.item = temp_p; \
-			_list.size++; \
+			LIST_REALLOC(_list,_list.size * 2) \
 		} \
 		memmove(_list.item + _index + 1, \
 				_list.item + _index, \
 				(_list.length - _index) * sizeof(*_list.item)); \
-		NEWITEM(_list,_index,_item) \
+		NEW_ITEM(_list,_index,_item) \
 	}while(0)
 
 #endif

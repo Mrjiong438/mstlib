@@ -1,5 +1,6 @@
 #ifndef HHOT
 #define HHOT
+#include"../../src/hotload.c"
 
 typedef void (*hello_t)();
 
