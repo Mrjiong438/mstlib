@@ -6,9 +6,9 @@
 #include<string.h>
 #include<errno.h>
 
-#define List_tail(_list) _list.item[_list.length - 1]
+#define mst_list_tail(_list) _list.item[_list.length - 1]
 
-#define List(type)\
+#define mst_list(type)\
 	struct{\
 		size_t length;\
 		size_t size;\
@@ -20,7 +20,7 @@
 	_list.item[_pos] = _item; \
 	_list.length++; \
 
-#define List_free(_list) \
+#define mst_list_free(_list) \
 	do{ \
 		if(_list.length != 0){ \
 			free(_list.item); \
@@ -30,9 +30,9 @@
 		} \
 	}while(0)
 
-#define List_alloc(_list,_size)
+#define mst_list_alloc(_list,_size)
 
-#define List_append(_list,_item) \
+#define mst_list_append(_list,_item) \
 	do{ \
 		if(_list.size == 0){ \
 			_list.item = malloc(sizeof(*_list.item)); \
@@ -57,7 +57,7 @@
 	}while(0) \
 	
 
-#define List_pop(_list) \
+#define mst_list_pop(_list) \
 	do{ \
 		if(_list.length == 0){ \
 			fprintf(stderr,"%s:%d: List_pop: " #_list " is already empty\n", \
@@ -71,7 +71,7 @@
 		_list.length--; \
 	}while(0)
 
-#define List_take(_list) \
+#define mst_list_take(_list) \
 	do{ \
 		if(_list.length == 0){ \
 			fprintf(stderr,"%s:%d: List_take: " #_list " is already empty\n", \
@@ -86,7 +86,7 @@
 		_list.length--; \
 	}while(0)
 
-#define List_insert(_list,_index,_item) \
+#define mst_list_insert(_list,_index,_item) \
 	do{ \
 		if(_index == 0 && _list.length == 0){ \
 			_list.item = malloc(sizeof(*_list.item)); \
