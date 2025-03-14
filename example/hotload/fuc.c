@@ -5,6 +5,6 @@ void nonono(){
 }
 
 void hello(){
-	/* printf("hello\n"); */
+	printf("hello\n");
 	printf("hello world\n");
 }
