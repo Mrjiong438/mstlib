@@ -40,5 +40,10 @@ int mst_load_lib(dylib *dlib){
 	}
 	return 0;
 }
+
+#ifdef MST_RELEASE
+#define mst_load_lib(n) 
+#endif//MST_RELEASE
+
 #endif//MST_HOT_LOAD_IMPLEMENTATION
 #endif//MST_HOT_LOAD

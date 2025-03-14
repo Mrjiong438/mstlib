@@ -3,6 +3,9 @@
 #include"../../src/hotload.c"
 
 typedef void (*hello_t)();
+hello_t hello();
+
+#ifndef MST_RELEASE
 
 dylib hell = {
 	.path = "./fuc.so",
@@ -14,9 +17,11 @@ dylib hell = {
 	}
 };
 
-void hello(){
-	hello_t fun = hell.fucs[0].fuc;
-	fun();
-}
+#define hello() \
+	do{ \
+		hello_t fun = hell.fucs[0].fuc; \
+		fun(); \
+	}while(0) \
 
+#endif//MST_RELEASE
 #endif//HHOT
