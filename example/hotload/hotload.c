@@ -1,12 +1,13 @@
 #include<stdio.h>
+#define MST_HOT_LOAD_IMPLEMENTATION
 #include"../../src/hotload.c"
 #include"hot.h"
 
 int main(){
-	load_lib(&hell);
+	mst_load_lib(&hell);
 	hello();
 	getc(stdin);
-	load_lib(&hell);
+	mst_load_lib(&hell);
 	hello();
 	printf("%d\n",add(1,2));
 	return 0;

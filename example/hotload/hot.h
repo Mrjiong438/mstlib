@@ -1,9 +1,11 @@
 #ifndef HHOT
 #define HHOT
+#include"../../src/hotload.c"
 
 typedef void (*hello_t)();
-typedef int (*add_t)(int a,int b);
+hello_t hello();
 
+#ifndef MST_RELEASE
 
 dylib hell = {
 	.path = "./fuc.so",
@@ -26,4 +28,5 @@ int add(int a,int b){
 	return fun(a,b);
 }
 
+#endif//MST_RELEASE
 #endif//HHOT

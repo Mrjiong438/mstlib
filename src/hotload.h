@@ -1,3 +1,5 @@
+#ifndef MST_HOT_LOAD
+#define MST_HOT_LOAD
 #include<stdio.h>
 #include<dlfcn.h>
 
@@ -12,7 +14,10 @@ typedef struct{
 	dyfuc *fucs;
 }dylib;
 
-int load_lib(dylib *dlib){
+int mst_load_lib(dylib *dlib);
+
+#ifdef MST_HOT_LOAD_IMPLEMENTATION
+int mst_load_lib(dylib *dlib){
 	if (dlib->lib != NULL) {
 		dlclose(dlib->lib);
 		/* *lib_dest = NULL; */
@@ -35,3 +40,10 @@ int load_lib(dylib *dlib){
 	}
 	return 0;
 }
+
+#ifdef MST_RELEASE
+#define mst_load_lib(n) 
+#endif//MST_RELEASE
+
+#endif//MST_HOT_LOAD_IMPLEMENTATION
+#endif//MST_HOT_LOAD
