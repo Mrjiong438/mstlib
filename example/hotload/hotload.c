@@ -1,6 +1,6 @@
 #include<stdio.h>
 #define MST_HOT_LOAD_IMPLEMENTATION
-#include"../../src/hotload.c"
+#include"../../src/hotload.h"
 #include"hot.h"
 
 int main(){

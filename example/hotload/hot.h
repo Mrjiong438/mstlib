@@ -1,9 +1,9 @@
 #ifndef HHOT
 #define HHOT
-#include"../../src/hotload.c"
+#include"../../src/hotload.h"
 
 typedef void (*hello_t)();
-hello_t hello();
+typedef int (*add_t)(int a,int b);
 
 #ifndef MST_RELEASE
 
