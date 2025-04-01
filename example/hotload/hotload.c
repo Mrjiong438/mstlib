@@ -8,5 +8,6 @@ int main(){
 	getc(stdin);
 	load_lib(&hell);
 	hello();
+	printf("%d\n",add(1,2));
 	return 0;
 }
