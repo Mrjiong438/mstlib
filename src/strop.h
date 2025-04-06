@@ -1,5 +1,5 @@
-#ifndef MST_FILE
-#define MST_FILE
+#ifndef MST_STROP
+#define MST_STROP
 #include<stdlib.h>
 #include<string.h>
 
@@ -15,8 +15,9 @@
 void mst_file_getpath(char dest[],const char *str);
 char* mst_file_getname(const char *str);
 int mst_file_makedir(const char *path);
+size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str,const char *split_char);
 
-#ifdef MST_FILE_IMPLEMENTATION
+#ifdef MST_STROP_IMPLEMENTATION
 void mst_file_getpath(char dest[],const char *str){
 	int i = (int)strlen(str)-1;
 	while(str[i] == '\\' || str[i] != '/'){
@@ -47,5 +48,35 @@ int mst_file_makedir(const char *path){
 #endif//__linux__
 }
 
-#endif//MST_FILE_IMPLEMENTATION
-#endif//MST_FILE
+size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str,const char *split_char){
+	if(destptr == NULL) return 0;
+
+	const char *spclist;
+	size_t count = 0;
+	if(split_char == NULL)
+		spclist = " \n";
+	else
+		spclist = split_char;
+
+	while(deststr == NULL)
+		deststr = malloc(strlen(str) * sizeof(char));
+	strcpy(deststr,str);
+
+	if(deststr[0] != '\0'){
+		destptr[count++] = 0;
+	}
+	for(size_t i = 1;i < strlen(str);i++){
+		if(strchr(spclist,deststr[i]) != NULL){
+			deststr[i] = '\0';
+			continue;
+		}
+		if(deststr[i - 1] == '\0'){
+			destptr[count++] = i;
+			continue;
+		}
+	}
+	return count;
+
+}
+#endif//MST_STROP_IMPLEMENTATION
+#endif//MST_STROP
