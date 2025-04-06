@@ -19,12 +19,12 @@ dylib hell = {
 };
 
 void hello(){
-	hello_t fun = hell.fucs[0].fuc;
+	void (*fun)() = hell.fucs[0].fuc;
 	return fun();
 }
 
 int add(int a,int b){
-	add_t fun = hell.fucs[2].fuc;
+	int (*fun)() = hell.fucs[2].fuc;
 	return fun(a,b);
 }
 
