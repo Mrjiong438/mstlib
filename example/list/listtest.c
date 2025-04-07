@@ -3,25 +3,34 @@
 #include"../../src/list.h"
 
 typedef mst_list(long)longlist;
+void list_appand_long(longlist *list,long item){
+	mst_list_append(list,item);
+}
 
 int main(){
 	longlist *a = NULL;
 	a = malloc(sizeof(longlist));
 	memset(a,0,sizeof(longlist));
 
-	mst_list_append((*a),1);
-	mst_list_append((*a),2);
-	mst_list_append((*a),3);
-	mst_list_append((*a),4);
-	mst_list_append((*a),5);
+	/* mst_list_append(a,1); */
+	/* mst_list_append(a,2); */
+	/* mst_list_append(a,3); */
+	/* mst_list_append(a,4); */
+	/* mst_list_append(a,5); */
 
-	mst_list_pop((*a));
+	list_appand_long(a,1);
+	list_appand_long(a,2);
+	list_appand_long(a,3);
+	list_appand_long(a,4);
+	list_appand_long(a,5);
 
-	mst_list_insert((*a),1,6);
-	mst_list_insert((*a),1,7);
-	mst_list_insert((*a),1,8);
-	mst_list_insert((*a),1,9);
-	mst_list_insert((*a),1,10);
+	/* mst_list_pop((*a)); */
+
+	/* mst_list_insert(a,1,6); */
+	/* mst_list_insert(a,1,7); */
+	/* mst_list_insert(a,1,8); */
+	/* mst_list_insert(a,1,9); */
+	/* mst_list_insert(a,1,10); */
 
 	for(size_t i = 0;i < a->length;i++){
 		printf("%ld\n",a->item[i]);
