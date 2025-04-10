@@ -50,6 +50,7 @@ int mst_file_makedir(const char *path){
 
 size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str,const char *split_char){
 	if(destptr == NULL) return 0;
+	if(n <= 0) return 0;
 
 	const char *spclist;
 	size_t count = 0;
@@ -66,17 +67,35 @@ size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str
 		destptr[count++] = 0;
 	}
 	for(size_t i = 1;i < strlen(str);i++){
+		if (count >= n) return count;
 		if(strchr(spclist,deststr[i]) != NULL){
 			deststr[i] = '\0';
-			continue;
-		}
-		if(deststr[i - 1] == '\0'){
+		}else if(deststr[i - 1] == '\0'){
 			destptr[count++] = i;
-			continue;
 		}
 	}
 	return count;
 
+}
+/* size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str,const char *split_char){ */
+size_t mst_string_list_ull(unsigned long long dest[],size_t n,const char *str){
+	if(n <= 0) return 0;
+	size_t count = 0;
+	memset(dest,0,n * sizeof(dest[0]));
+	if(str[0] <= '9' && str[0] >= '0'){
+		dest[count] = dest[count] * 10 + str[0] - '0';
+		/* printf("i:0,c:%c,count:%zu\n",str[0],count); */
+	}
+	for(size_t i = 1;i <= strlen(str);i++){
+		if (count >= n) return count;
+		/* printf("i:%zu,c:%c,count:%zu\n",i,str[i],count); */
+		if(str[i] <= '9' && str[i] >= '0'){
+			dest[count] = dest[count] * 10 + str[i] - '0';
+		}else if(str[i - 1] >= '0' && str[i - 1] <= '9'){
+			count++;
+		}
+	}
+	return count;
 }
 #endif//MST_STROP_IMPLEMENTATION
 #endif//MST_STROP
