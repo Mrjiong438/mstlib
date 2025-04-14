@@ -17,7 +17,7 @@ int main(int argc,const char *argv[]){
 		printf("%02X ",str[i]);
 	printf("\n");
 
-	size_t num = mst_string_split(ptrlist,50,dest,str,",");
+	size_t num = mst_string_split(ptrlist,50,dest,argv[1],",");
 	printf("num:%zu\n",num);
 
 	/* str[0] = '\0'; */
