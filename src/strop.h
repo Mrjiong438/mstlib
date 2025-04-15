@@ -59,9 +59,8 @@ size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str
 	else
 		spclist = split_char;
 
-	while(deststr == NULL)
-		deststr = malloc(strlen(str) * sizeof(char));
-	strcpy(deststr,str);
+	if(deststr == NULL) return 0;
+	strncpy(deststr,str,strlen(str));
 
 	if(deststr[0] != '\0'){
 		destptr[count++] = 0;

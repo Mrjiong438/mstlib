@@ -18,7 +18,7 @@ int main(int argc,const char *argv[]){
 	printf("\n");
 
 	size_t num = mst_string_split(ptrlist,50,dest,argv[1],",");
-	printf("num:%zu\n",num);
+	/* printf("num:%zu\n",num); */
 
 	/* str[0] = '\0'; */
 	for(size_t i = 0;i < strlen(str);i++)
