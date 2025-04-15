@@ -60,7 +60,7 @@ size_t mst_string_split(size_t destptr[],size_t n,char deststr[],const char *str
 		spclist = split_char;
 
 	if(deststr == NULL) return 0;
-	strncpy(deststr,str,strlen(str));
+	strncpy(deststr,str,strlen(str)+1);
 
 	if(deststr[0] != '\0'){
 		destptr[count++] = 0;
