@@ -5,16 +5,13 @@
 //e_m2f means encode file to file
 //d_f2m means decode memery to memery
 //and so on
-//
-//get data and write least 9 byte most 17 byte to write_buf,return how many byte writed
 
 #define la_buff_size 258
 
 #ifdef MST_COMPRESS_IMPLEMENTATION
-//is a weird implementation but basicly a changed dynamic programming way of longest common substring
-//return the length of match
+//return the index of match
 size_t longest_match(
-        size_t *r_index,
+        size_t *r_length,
         const void *t,const size_t tlen,
         const void *p,const size_t plen,
         size_t *buf
@@ -24,30 +21,44 @@ size_t longest_match(
         *parent = (unsigned char *)p;
     size_t max_index = 0;
     size_t max_length = 0;
-    for(size_t i = 0;i < tlen;i++){
-        if(targit[i] == parent[0]){
-            buf[i % plen] = 1;
-            if(buf[i % plen] > max_length){
-                max_length = buf[i % plen];
-                max_index = i;
+    memset(buf,0,tlen * sizeof(buf[0]));
+
+    for(size_t j = 0;j < tlen - plen;j++){
+        if(parent[0] == targit[j]){
+            buf[j] = 1;
+            max_index = j;
+            max_length = 1;
+        }
+    }
+    for(size_t j = 1;j < tlen;j++){
+        if(parent[1] == targit[tlen - j] && buf[tlen - j - 1] != 0){
+            buf[tlen - j] = buf[tlen - j - 1] + 1;
+            if(buf[tlen - j] >= max_length){
+                max_length = buf[tlen- j];
+                max_index = tlen - j - max_length + 1;
             }
         }
-        for(size_t j = 1;j < plen && i >= j;j++){
-            if(targit[i] != parent[j]){
-                buf[(i-j) % plen] = 0;
-            }else
-            if(buf[(i-j) % plen] != 0){
-                buf[(i-j) % plen]++;
+        else{
+            buf[tlen - j] = 0;
+        }
+    }
+    buf[0] = 0;
+    for(size_t i = 2;i < plen;i++){
+        for(size_t j = 1;j < tlen;j++){
+            if(parent[i] == targit[tlen - j] && buf[tlen - j - 1] != 0){
+                buf[tlen - j] = buf[tlen - j - 1] + 1;
+                if(buf[tlen - j] >= max_length){
+                    max_length = buf[tlen- j];
+                    max_index = tlen - j - max_length + 1;
+                }
             }
-
-            if(buf[(i-j) % plen] > max_length){
-                max_length = buf[(i-j) % plen];
-                max_index = i-j;
+            else{
+                buf[tlen - j] = 0;
             }
         }
     }
-    *r_index = max_index;
-    return max_length;
+    *r_length = max_length;
+    return max_index;
 }
 //return the size of decompressed data
 /* size_t lzss_decode_f2f( */
@@ -93,7 +104,6 @@ size_t lzss_encode_f2f(
     unsigned char buf_write[17];
     size_t match_buf[la_buff_size];
     size_t writed_byte_count = 0;
-    /* buf_write[0]; */
     unsigned int count_flag = 0;
     unsigned int count_bufw = 0;
     FILE *input = NULL;
@@ -103,12 +113,12 @@ size_t lzss_encode_f2f(
     size_t match_index;
     size_t match_length;
     size_t parent_length;
-    unsigned char buf_read[32 * 2 * 1024];
+    unsigned char buf_read[(256 + 258) * 2];
     size_t endindex = 0;
     size_t encohead = 0;
-    endindex += fread(buf_read,1,32*1024,input);
+    endindex += fread(buf_read,1,(256 + 258),input);
 
-    buf_write[0] <<= 1;
+    buf_write[0] = 0x00;
     count_flag++;
     buf_write[1 + count_bufw] = buf_read[encohead];
     count_bufw++;
@@ -118,9 +128,9 @@ size_t lzss_encode_f2f(
             parent_length = endindex - encohead;
         else
             parent_length = la_buff_size;
-        match_length = longest_match(
-                &match_index,
-                buf_read,encohead,
+        match_index =encohead - 1 - longest_match(
+                &match_length,
+                buf_read,encohead + parent_length,
                 buf_read + encohead,parent_length,
                 match_buf
                 );
