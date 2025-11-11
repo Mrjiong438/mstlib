@@ -60,6 +60,8 @@ size_t longest_match(
     *r_length = max_length;
     return max_index;
 }
+//TODO:manuly encode to have a answer
+//TODO:decode it!
 //return the size of decompressed data
 /* size_t lzss_decode_f2f( */
 /*         const char *in_file_name,const char *out_file_name */
