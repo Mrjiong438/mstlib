@@ -63,42 +63,22 @@ size_t longest_match(
 //TODO:manuly encode to have a answer
 //TODO:decode it!
 //return the size of decompressed data
-/* size_t lzss_decode_f2f( */
-/*         const char *in_file_name,const char *out_file_name */
-/*     ){ */
-/*     FILE *input = NULL; */
-/*     input = fopen(in_file_name,"rb"); */
-/*     FILE *output = NULL; */
-/*     output = fopen(out_file_name,"wb"); */
-/*     unsigned char flag; */
-/*     unsigned int count_flag = 8; */
-/*     unsigned char buf_read[32 * 1024]; */
-/*     unsigned char buf_write[32 * 1024]; */
-/*     unsigned int count_bufw = 0; */
-/*     size_t buf_read_len; */
-/*     buf_read_len += fread(buf_read,1,32*1024,input); */
+size_t lzss_decode_f2f(
+        const char *in_file_name,const char *out_file_name
+    ){
+    FILE *input = NULL;
+    input = fopen(in_file_name,"rb");
+    FILE *output = NULL;
+    output = fopen(out_file_name,"wb");
+    unsigned char flag;
+    unsigned int count_flag = 8;
+    unsigned char buf_read[32 * 1024];
+    unsigned char buf_write[32 * 1024];
+    unsigned int count_bufw = 0;
+    size_t buf_read_len;
+    buf_read_len += fread(buf_read,1,4*1024,input);
 
-/*     for(unsigned int i = 0;i < buf_read_len;i++){ */
-/*         if(count_flag == 8){ */
-/*             flag = buf_read[i]; */
-/*             count_flag = 0; */
-/*             continue; */
-/*         } */
-
-/*         if(flag & (0x01 << count_flag) == 0x00){ */
-/*             buf_write[count_bufw] = buf_read[i]; */
-/*             count_bufw++; */
-/*         } */
-/*         else{ */
-/*             unsigned int index = buf_read[i]; */
-/*             unsigned int length = buf_read[i+1]; */
-/*             for(unsigned int j = 0;j < length;j++){ */
-/*                 buf_write[count_bufw + j] = buf_write[count_bufw - index */
-/*             } */
-/*         } */
-/*         count_flag++; */
-/*     } */
-/* } */
+}
 //return the size of compressed data
 size_t lzss_encode_f2f(
         const char *in_file_name,const char *out_file_name
